@@ -1,0 +1,9 @@
+lab_id,failure_category,count,percent,example_anonymized_note
+Lab1,Ghidra/tool navigation,,,
+Lab1,source-to-binary mapping,,,
+Lab1,compiler optimization misunderstanding,,,
+Lab2,undefined behavior semantics,,,
+Lab2,dynamic tracing missing,,,
+Lab3,ABI/calling convention confusion,,,
+Lab3,Rust/C FFI contract misunderstanding,,,
+Lab4,mitigation proposal weak or missing,,,

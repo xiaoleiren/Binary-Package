@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  ctfd:
+    image: ctfd/ctfd:3.7.0
+    container_name: binary-gap-ctfd
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=dev-secret-key-change-me
+      - CTF_FLAG_PREFIX=CTF{
+      - SQLALCHEMY_DATABASE_URI=sqlite:///ctfd.db
+    volumes:
+      - ./ctf_config/challenges:/var/opt/CTFd/plugins/challenges
+
+  ghidra:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: binary-gap-ghidra
+    ports:
+      - "5900:5900"  # VNC
+    volumes:
+      - ./labs:/workspace/labs
+      - ./scripts:/workspace/scripts
+    stdin_open: true
+    tty: true
+
+  db:
+    image: postgres:14
+    container_name: binary-gap-db
+    environment:
+      - POSTGRES_USER=ctfd
+      - POSTGRES_PASSWORD=ctfd
+      - POSTGRES_DB=ctfd
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
